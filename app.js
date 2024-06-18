@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 const api = new NationsAPI('d74g32Q8nBfid48A7c8BTks4JRDkTL');
 
-// Middleware CORS
+
 app.use(cors(
     {
         origin: '*',
@@ -14,12 +14,14 @@ app.use(cors(
     }
 ));
 
-// Route principale
+app.use(express.static('public'));
+
+
 app.get('/', (req, res) => { 
     res.json({ message: 'Hello World!' });
 });
 
-// Route pour obtenir le nombre de joueurs
+
 app.set('/playercount', (req, res) => {
     api.getPlayersCount()
         .then(data => {
@@ -35,7 +37,6 @@ app.set('/notations', (req, res) => {
     const week = req.query.week;
     const country = req.query.country;
     const server = req.query.server
-    //comment recupêrais les paramètres de la requête
 
     api.getNotations(week, country, server)
         .then(data => {
@@ -47,7 +48,6 @@ app.set('/notations', (req, res) => {
         });
 });
 
-// Route pour obtenir les informations d'un joueur
 app.set('/user', (req, res) => {
     const player = req.query.player;
     api.getUser(player)
@@ -59,6 +59,7 @@ app.set('/user', (req, res) => {
             res.status(500).json({ error: 'Erreur lors de la récupération des informations du joueur' });
         });
 });
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Le serveur écoute sur le port ${PORT}`);
