@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.set('/playercount', (req, res) => {
+app.get('/playercount', (req, res) => {
     api.getPlayersCount()
         .then(data => {
             res.json(data);
@@ -33,7 +33,7 @@ app.set('/playercount', (req, res) => {
         });
 });
 
-app.set('/notations', (req, res) => {
+app.get('/notations', (req, res) => {
     const week = req.query.week;
     const country = req.query.country;
     const server = req.query.server
@@ -48,7 +48,7 @@ app.set('/notations', (req, res) => {
         });
 });
 
-app.set('/user', (req, res) => {
+app.get('/user', (req, res) => {
     const player = req.query.player;
     api.getUser(player)
         .then(data => {
