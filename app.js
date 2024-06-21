@@ -60,6 +60,19 @@ app.get('/user', (req, res) => {
         });
 });
 
+app.get('/country', (req, res) => {
+    const country2 = req.query.country;
+    const server2 = req.query.server;
+    api.getCountry(server2, country2)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des informations du pays:', error);
+            res.status(500).json({ error: 'Erreur lors de la récupération des informations du pays' });
+        });
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Le serveur écoute sur le port ${PORT}`);
